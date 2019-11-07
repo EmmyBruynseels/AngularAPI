@@ -12,5 +12,6 @@ namespace ProjectAPI.Models
 
 		public Poll Poll { get; set; }
 		public int PollID { get; set; }
+		public ICollection<Stem> Stemmen { get; set; }
 	}
 }

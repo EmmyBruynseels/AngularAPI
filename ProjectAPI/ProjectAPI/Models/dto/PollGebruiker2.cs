@@ -9,5 +9,6 @@ namespace ProjectAPI.Models.dto
 	{
 		public int PollID { get; set; }
 		public int UserID { get; set; }
+		public bool isAdmin { get; set; }
 	}
 }

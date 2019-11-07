@@ -36,7 +36,9 @@ namespace ProjectAPI.Models
 */
 
 			context.PollGebruikers.AddRange(
-				new PollGebruiker { Poll = context.Polls.Single(p => p.PollID == 1), User = context.Users.Single(u => u.UserID == 1) }
+				new PollGebruiker { Poll = context.Polls.Single(p => p.PollID == 1), User = context.Users.Single(u => u.UserID == 1), isAdmin= true },
+				new PollGebruiker { Poll = context.Polls.Single(p => p.PollID == 1), User = context.Users.Single(u => u.UserID == 2), isAdmin = false },
+				new PollGebruiker { Poll = context.Polls.Single(p => p.PollID == 2), User = context.Users.Single(u => u.UserID == 1), isAdmin = true }
 			);
 			context.SaveChanges();
 

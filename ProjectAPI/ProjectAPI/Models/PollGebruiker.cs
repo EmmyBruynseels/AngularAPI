@@ -10,6 +10,7 @@ namespace ProjectAPI.Models
 		public int PollGebruikerID { get; set; }
 		public int PollID { get; set; }
 		public int UserID { get; set; }
+		public bool isAdmin { get; set; }
 
 		public Poll Poll { get; set; }
 		public User User { get; set; }

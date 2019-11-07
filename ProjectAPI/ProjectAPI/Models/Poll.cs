@@ -11,5 +11,6 @@ namespace ProjectAPI.Models
 		public string Naam { get; set; }
 
 		public ICollection<Antwoord> Antwoorden { get; set; }
+		public ICollection<PollGebruiker> PollGebruikers { get; set; }
 	}
 }
