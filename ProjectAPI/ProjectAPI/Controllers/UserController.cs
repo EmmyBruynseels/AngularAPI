@@ -85,7 +85,7 @@ namespace ProjectAPI.Controllers
 
         // POST: api/User
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser([FromBody] User user)
         {
 		//	var user1 = new User() { Email = user.Email, Username = user.Username, Password =user.Password};
             _context.Users.Add(user);
