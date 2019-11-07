@@ -1,0 +1,16 @@
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\appsettings.Development.json
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\appsettings.json
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\ProjectAPI.deps.json
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\ProjectAPI.runtimeconfig.json
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\ProjectAPI.runtimeconfig.dev.json
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\ProjectAPI.dll
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\bin\Debug\netcoreapp2.2\ProjectAPI.pdb
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.csprojAssemblyReference.cache
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.RazorAssemblyInfo.cache
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.RazorAssemblyInfo.cs
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.AssemblyInfoInputs.cache
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.AssemblyInfo.cs
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.RazorTargetAssemblyInfo.cache
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.dll
+D:\ThomasMore1920\Angular\ProjectAPI\ProjectAPI\ProjectAPI\obj\Debug\netcoreapp2.2\ProjectAPI.pdb
