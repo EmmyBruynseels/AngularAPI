@@ -28,6 +28,7 @@ namespace ProjectAPI.Models
 			modelBuilder.Entity<Antwoord>().ToTable("Antwoord");
 			modelBuilder.Entity<PollGebruiker>().ToTable("PollGebruiker");
 			modelBuilder.Entity<Friend>().ToTable("Friend");
+				
 		}
 
 		public DbSet<ProjectAPI.Models.PollGebruiker> PollGebruiker { get; set; }

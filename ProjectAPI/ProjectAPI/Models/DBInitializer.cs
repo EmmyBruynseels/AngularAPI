@@ -24,16 +24,19 @@ namespace ProjectAPI.Models
 
 			context.Users.AddRange(
 				new User { Email = "emmy.bruynseels@hotmail.com", Username = "Emmy", Password = "Emmy" },
-				new User { Email = "emmy.bruynseels@outlook.com", Username = "EmmyBruynseels", Password = "EmmyBruynseels" }
+				new User { Email = "emmy.bruynseels@outlook.com", Username = "EmmyBruynseels", Password = "EmmyBruynseels" },
+				new User { Email = "gytha.bruynseels@hotmail.com", Username = "GythaBruynseels", Password = "GythaBruynseels" }
 			);
 			context.SaveChanges();
 
 
-			/*context.Friends.AddRange(
-				new Friend { Sender = context.Users.Single(u => u.UserID == 1), Ontvanger = context.Users.Single(u => u.UserID == 2), Accepted = false }
+			context.Friends.AddRange(
+				//new Friend { Sender = context.Users.Single(u => u.UserID == 1), Ontvanger = context.Users.Single(u => u.UserID == 2), Accepted = true },
+				new Friend { SenderID =1 , OntvangerID = 2, Accepted = true },
+				//new Friend { Sender = context.Users.Single(u => u.UserID == 3), Ontvanger = context.Users.Single(u => u.UserID == 1), Accepted = false }
+				new Friend { SenderID = 3, OntvangerID =1, Accepted = false }
 				);
 			context.SaveChanges();
-*/
 
 			context.PollGebruikers.AddRange(
 				new PollGebruiker { Poll = context.Polls.Single(p => p.PollID == 1), User = context.Users.Single(u => u.UserID == 1), isAdmin= true },
