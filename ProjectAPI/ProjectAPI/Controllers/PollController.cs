@@ -73,10 +73,103 @@ namespace ProjectAPI.Controllers
 
 			return pollModel;
 		}
+		[Authorize]
+		[HttpGet("pollsAdmin")]
+		public async Task<IEnumerable<Poll2>> GetPollsBeheerder(int userID)
+		{
+			//gebruikerID  == huidige gebruiker
+			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
+			List<Poll2> pollModel = new List<Poll2>();
+
+			foreach (var p in Polls)
+			{
+				foreach (var pg in p.PollGebruikers)
+				{
+					if (pg.PollID == p.PollID && pg.UserID == userID)
+					{
+						if (pg.isAdmin == true)
+						{
+
+							Poll2 poll = new Poll2();
+							poll.Naam = p.Naam;
+							poll.PollID = p.PollID;
+							poll.Antwoorden = new List<Antwoord2>();
+							foreach (var a in p.Antwoorden)
+							{
+								var antw = new Antwoord2();
+								antw.AntwoordID = a.AntwoordID;
+								antw.Naam = a.Naam;
+								antw.Stemmen = new List<Stem2>();
+
+
+								foreach (var s in a.Stemmen)
+								{
+									antw.Stemmen.Add(new Stem2() { UserID = s.UserID, AntwoordID = s.AntwoordID });
+
+								}
+
+								poll.Antwoorden.Add(antw);
+							}
+
+							pollModel.Add(poll);
+						}
+					}
+				}
+			}
+
+
+			return pollModel;
+		}
+		[Authorize]
+		[HttpGet("pollsUser")]
+		public async Task<IEnumerable<Poll2>> GetPollsUser(int userID)
+		{
+			//gebruikerID  == huidige gebruiker
+			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
+			List<Poll2> pollModel = new List<Poll2>();
+
+			foreach (var p in Polls)
+			{
+				foreach (var pg in p.PollGebruikers)
+				{
+					if (pg.PollID == p.PollID && pg.UserID == userID)
+					{
+						if (pg.isAdmin == false)
+						{
+							Poll2 poll = new Poll2();
+							poll.Naam = p.Naam;
+							poll.PollID = p.PollID;
+							poll.Antwoorden = new List<Antwoord2>();
+							foreach (var a in p.Antwoorden)
+							{
+								var antw = new Antwoord2();
+								antw.AntwoordID = a.AntwoordID;
+								antw.Naam = a.Naam;
+								antw.Stemmen = new List<Stem2>();
+
+
+								foreach (var s in a.Stemmen)
+								{
+									antw.Stemmen.Add(new Stem2() { UserID = s.UserID, AntwoordID = s.AntwoordID });
+
+								}
+
+								poll.Antwoorden.Add(antw);
+							}
+
+							pollModel.Add(poll);
+						}
+					}
+				}
+			}
+
+
+			return pollModel;
+		}
 
 		[Authorize]
 		[HttpGet]
-		public async Task<IEnumerable<Poll2>> GetPoll()
+		public async Task<IEnumerable<Poll2>> GetPolls()
 		{
 			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
 			List<Poll2> pollModel = new List<Poll2>();
