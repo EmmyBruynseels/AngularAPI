@@ -55,7 +55,7 @@ namespace ProjectAPI.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id,[FromBody] User user)
         {
             if (id != user.UserID)
             {

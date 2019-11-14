@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectAPI.Models;
+using ProjectAPI.Models.dto;
 
 namespace ProjectAPI.Controllers
 {
@@ -130,12 +131,13 @@ namespace ProjectAPI.Controllers
 		// POST: api/Friend
 		[Authorize]
 		[HttpPost]
-        public async Task<ActionResult<Friend>> PostFriend(Friend friend)
+        public async Task<ActionResult<Friend2>> PostFriend(Friend2 friend)
         {
-            _context.Friends.Add(friend);
+			var friend1 = new Friend() { OntvangerID = friend.OntvangerID, SenderID = friend.SenderID, Accepted = friend.Accepted };
+            _context.Friends.Add(friend1);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFriend", new { id = friend.FriendID }, friend);
+            return CreatedAtAction("GetFriend", new { id = friend1.FriendID }, friend1);
         }
 
 		// DELETE: api/Friend/5

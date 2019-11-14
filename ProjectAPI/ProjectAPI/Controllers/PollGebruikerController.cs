@@ -81,7 +81,7 @@ namespace ProjectAPI.Controllers
 		[HttpPost]
         public async Task<ActionResult<PollGebruiker2>> PostPollGebruiker(PollGebruiker2 pollGebruiker)
         {
-			var pg1 = new PollGebruiker() { UserID = pollGebruiker.UserID, PollID = pollGebruiker.PollID };
+			var pg1 = new PollGebruiker() { UserID = pollGebruiker.UserID, PollID = pollGebruiker.PollID, isAdmin = pollGebruiker.isAdmin };
             _context.PollGebruiker.Add(pg1);
             await _context.SaveChangesAsync();
 
