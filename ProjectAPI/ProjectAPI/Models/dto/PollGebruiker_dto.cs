@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace ProjectAPI.Models.dto
 {
-	public class User2
+	public class PollGebruiker_dto
 	{
-		public string Email { get; set; }
-		public string Password { get; set; }
-		public string Username { get; set; }
+		public int PollID { get; set; }
+		public int UserID { get; set; }
+		public bool isAdmin { get; set; }
 	}
 }

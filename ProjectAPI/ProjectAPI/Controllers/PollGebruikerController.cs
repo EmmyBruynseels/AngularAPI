@@ -79,7 +79,7 @@ namespace ProjectAPI.Controllers
 		// POST: api/PollGebruiker
 		[Authorize]
 		[HttpPost]
-        public async Task<ActionResult<PollGebruiker2>> PostPollGebruiker(PollGebruiker2 pollGebruiker)
+        public async Task<ActionResult<PollGebruiker_dto>> PostPollGebruiker(PollGebruiker_dto pollGebruiker)
         {
 			var pg1 = new PollGebruiker() { UserID = pollGebruiker.UserID, PollID = pollGebruiker.PollID, isAdmin = pollGebruiker.isAdmin };
             _context.PollGebruiker.Add(pg1);

@@ -79,7 +79,7 @@ namespace ProjectAPI.Controllers
 		// POST: api/Stem
 		[Authorize]
 		[HttpPost]
-		public async Task<ActionResult<Stem2>> PostStem(Stem2 stem)
+		public async Task<ActionResult<Stem_dto>> PostStem(Stem_dto stem)
 		{
 			var stem1 = new Stem() { AntwoordID = stem.AntwoordID, UserID = stem.UserID };
 

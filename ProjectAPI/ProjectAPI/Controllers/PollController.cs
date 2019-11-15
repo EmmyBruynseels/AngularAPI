@@ -32,11 +32,11 @@ namespace ProjectAPI.Controllers
 
 		[Authorize]
 		[HttpGet("polls")]
-		public async Task<IEnumerable<Poll2>> GetPolls(int userID)
+		public async Task<IEnumerable<Poll_dto>> GetPolls(int userID)
 		{
 			//gebruikerID  == huidige gebruiker
 			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
-			List<Poll2> pollModel = new List<Poll2>();
+			List<Poll_dto> pollModel = new List<Poll_dto>();
 
 			foreach (var p in Polls)
 			{
@@ -45,21 +45,21 @@ namespace ProjectAPI.Controllers
 					if (pg.PollID == p.PollID && pg.UserID == userID)
 					{
 
-						Poll2 poll = new Poll2();
+						Poll_dto poll = new Poll_dto();
 						poll.Naam = p.Naam;
 						poll.PollID = p.PollID;
-						poll.Antwoorden = new List<Antwoord2>();
+						poll.Antwoorden = new List<Antwoord_dto>();
 						foreach (var a in p.Antwoorden)
 						{
-							var antw = new Antwoord2();
+							var antw = new Antwoord_dto();
 							antw.AntwoordID = a.AntwoordID;
 							antw.Naam = a.Naam;
-							antw.Stemmen = new List<Stem2>();
+							antw.Stemmen = new List<Stem_dto>();
 
 
 							foreach (var s in a.Stemmen)
 							{
-								antw.Stemmen.Add(new Stem2() { UserID = s.UserID, AntwoordID = s.AntwoordID });
+								antw.Stemmen.Add(new Stem_dto() { StemID = s.StemID, UserID = s.UserID, AntwoordID = s.AntwoordID });
 
 							}
 
@@ -75,11 +75,11 @@ namespace ProjectAPI.Controllers
 		}
 		[Authorize]
 		[HttpGet("pollsAdmin")]
-		public async Task<IEnumerable<Poll2>> GetPollsBeheerder(int userID)
+		public async Task<IEnumerable<Poll_dto>> GetPollsBeheerder(int userID)
 		{
 			//gebruikerID  == huidige gebruiker
 			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
-			List<Poll2> pollModel = new List<Poll2>();
+			List<Poll_dto> pollModel = new List<Poll_dto>();
 
 			foreach (var p in Polls)
 			{
@@ -90,21 +90,21 @@ namespace ProjectAPI.Controllers
 						if (pg.isAdmin == true)
 						{
 
-							Poll2 poll = new Poll2();
+							Poll_dto poll = new Poll_dto();
 							poll.Naam = p.Naam;
 							poll.PollID = p.PollID;
-							poll.Antwoorden = new List<Antwoord2>();
+							poll.Antwoorden = new List<Antwoord_dto>();
 							foreach (var a in p.Antwoorden)
 							{
-								var antw = new Antwoord2();
+								var antw = new Antwoord_dto();
 								antw.AntwoordID = a.AntwoordID;
 								antw.Naam = a.Naam;
-								antw.Stemmen = new List<Stem2>();
+								antw.Stemmen = new List<Stem_dto>();
 
 
 								foreach (var s in a.Stemmen)
 								{
-									antw.Stemmen.Add(new Stem2() { UserID = s.UserID, AntwoordID = s.AntwoordID });
+									antw.Stemmen.Add(new Stem_dto() { StemID= s.StemID, UserID = s.UserID, AntwoordID = s.AntwoordID });
 
 								}
 
@@ -122,11 +122,11 @@ namespace ProjectAPI.Controllers
 		}
 		[Authorize]
 		[HttpGet("pollsUser")]
-		public async Task<IEnumerable<Poll2>> GetPollsUser(int userID)
+		public async Task<IEnumerable<Poll_dto>> GetPollsUser(int userID)
 		{
 			//gebruikerID  == huidige gebruiker
 			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
-			List<Poll2> pollModel = new List<Poll2>();
+			List<Poll_dto> pollModel = new List<Poll_dto>();
 
 			foreach (var p in Polls)
 			{
@@ -136,21 +136,21 @@ namespace ProjectAPI.Controllers
 					{
 						if (pg.isAdmin == false)
 						{
-							Poll2 poll = new Poll2();
+							Poll_dto poll = new Poll_dto();
 							poll.Naam = p.Naam;
 							poll.PollID = p.PollID;
-							poll.Antwoorden = new List<Antwoord2>();
+							poll.Antwoorden = new List<Antwoord_dto>();
 							foreach (var a in p.Antwoorden)
 							{
-								var antw = new Antwoord2();
+								var antw = new Antwoord_dto();
 								antw.AntwoordID = a.AntwoordID;
 								antw.Naam = a.Naam;
-								antw.Stemmen = new List<Stem2>();
+								antw.Stemmen = new List<Stem_dto>();
 
 
 								foreach (var s in a.Stemmen)
 								{
-									antw.Stemmen.Add(new Stem2() { UserID = s.UserID, AntwoordID = s.AntwoordID });
+									antw.Stemmen.Add(new Stem_dto() { StemID = s.StemID, UserID = s.UserID, AntwoordID = s.AntwoordID });
 
 								}
 
@@ -169,27 +169,27 @@ namespace ProjectAPI.Controllers
 
 		[Authorize]
 		[HttpGet]
-		public async Task<IEnumerable<Poll2>> GetPolls()
+		public async Task<IEnumerable<Poll_dto>> GetPolls()
 		{
 			IEnumerable<Poll> Polls = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a => a.Stemmen).Include(p => p.PollGebruikers).ToListAsync();
-			List<Poll2> pollModel = new List<Poll2>();
+			List<Poll_dto> pollModel = new List<Poll_dto>();
 
 			foreach (var p in Polls)
 			{
-				Poll2 poll = new Poll2();
+				Poll_dto poll = new Poll_dto();
 				poll.Naam = p.Naam;
 				poll.PollID = p.PollID;
-				poll.Antwoorden = new List<Antwoord2>();
+				poll.Antwoorden = new List<Antwoord_dto>();
 				foreach (var a in p.Antwoorden)
 				{
-					var antw = new Antwoord2();
+					var antw = new Antwoord_dto();
 					antw.AntwoordID = a.AntwoordID;
 					antw.Naam = a.Naam;
-					antw.Stemmen = new List<Stem2>();
+					antw.Stemmen = new List<Stem_dto>();
 
 					foreach (var s in a.Stemmen)
 					{
-						antw.Stemmen.Add(new Stem2() { UserID = s.UserID, AntwoordID = s.AntwoordID });
+						antw.Stemmen.Add(new Stem_dto() { StemID = s.StemID, UserID = s.UserID, AntwoordID = s.AntwoordID });
 					}
 
 					poll.Antwoorden.Add(antw);

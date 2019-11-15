@@ -87,7 +87,7 @@ namespace ProjectAPI.Controllers
 		// POST: api/Antwoord
 		[Authorize]
 		[HttpPost]
-        public async Task<ActionResult<Antwoord2>> PostAntwoord(Antwoord2 antwoord)
+        public async Task<ActionResult<Antwoord_dto>> PostAntwoord(Antwoord_dto antwoord)
         {
 			var antwoord1 = new Antwoord() { Naam = antwoord.Naam, PollID =  antwoord.PollID};
 

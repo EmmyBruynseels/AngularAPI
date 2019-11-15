@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ProjectAPI.Models.dto
 {
-	public class Antwoord2
+	public class Poll_dto
 	{
 		public int PollID { get; set; }
 		public string Naam { get; set; }
-		public int AntwoordID { get; set; }
+		public List<Antwoord_dto> Antwoorden { get; set; }
+		public List<PollGebruiker_dto> Users { get; set; }
 
-		public List<Stem2> Stemmen { get; set; }
 	}
 }

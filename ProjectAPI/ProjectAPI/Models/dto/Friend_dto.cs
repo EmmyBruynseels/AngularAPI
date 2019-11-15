@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAPI.Models.dto
 {
-	public class Friend2
+	public class Friend_dto
 	{
 		public int FriendID { get; set; }
 		public int SenderID { get; set; }

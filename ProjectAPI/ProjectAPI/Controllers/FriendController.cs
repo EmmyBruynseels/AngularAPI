@@ -131,7 +131,7 @@ namespace ProjectAPI.Controllers
 		// POST: api/Friend
 		[Authorize]
 		[HttpPost]
-        public async Task<ActionResult<Friend2>> PostFriend(Friend2 friend)
+        public async Task<ActionResult<Friend_dto>> PostFriend(Friend_dto friend)
         {
 			var friend1 = new Friend() { OntvangerID = friend.OntvangerID, SenderID = friend.SenderID, Accepted = friend.Accepted };
             _context.Friends.Add(friend1);
