@@ -55,8 +55,6 @@ namespace ProjectAPI.Controllers
 							antw.AntwoordID = a.AntwoordID;
 							antw.Naam = a.Naam;
 							antw.Stemmen = new List<Stem_dto>();
-
-
 							foreach (var s in a.Stemmen)
 							{
 								antw.Stemmen.Add(new Stem_dto() { StemID = s.StemID, UserID = s.UserID, AntwoordID = s.AntwoordID });
@@ -65,6 +63,16 @@ namespace ProjectAPI.Controllers
 
 							poll.Antwoorden.Add(antw);
 						}
+						poll.Users = new List<PollGebruiker_dto>();
+						foreach (var u in p.PollGebruikers)
+						{
+							var pollUser = new PollGebruiker_dto();
+							pollUser.UserID = u.UserID;
+							pollUser.PollID = u.PollID;
+							pollUser.isAdmin = u.isAdmin;
+							poll.Users.Add(pollUser);
+						}
+
 						pollModel.Add(poll);
 					}
 				}
@@ -109,6 +117,15 @@ namespace ProjectAPI.Controllers
 								}
 
 								poll.Antwoorden.Add(antw);
+							}
+							poll.Users = new List<PollGebruiker_dto>();
+							foreach (var u in p.PollGebruikers)
+							{
+								var pollUser = new PollGebruiker_dto();
+								pollUser.UserID = u.UserID;
+								pollUser.PollID = u.PollID;
+								pollUser.isAdmin = u.isAdmin;
+								poll.Users.Add(pollUser);
 							}
 
 							pollModel.Add(poll);
@@ -156,6 +173,15 @@ namespace ProjectAPI.Controllers
 
 								poll.Antwoorden.Add(antw);
 							}
+							poll.Users = new List<PollGebruiker_dto>();
+							foreach (var u in p.PollGebruikers)
+							{
+								var pollUser = new PollGebruiker_dto();
+								pollUser.UserID = u.UserID;
+								pollUser.PollID = u.PollID;
+								pollUser.isAdmin = u.isAdmin;
+								poll.Users.Add(pollUser);
+							}
 
 							pollModel.Add(poll);
 						}
@@ -193,6 +219,15 @@ namespace ProjectAPI.Controllers
 					}
 
 					poll.Antwoorden.Add(antw);
+				}
+				poll.Users = new List<PollGebruiker_dto>();
+				foreach (var u in p.PollGebruikers)
+				{
+					var pollUser = new PollGebruiker_dto();
+					pollUser.UserID = u.UserID;
+					pollUser.PollID = u.PollID;
+					pollUser.isAdmin = u.isAdmin;
+					poll.Users.Add(pollUser);
 				}
 				pollModel.Add(poll);
 			}

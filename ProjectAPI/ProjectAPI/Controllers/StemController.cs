@@ -76,8 +76,7 @@ namespace ProjectAPI.Controllers
 			return NoContent();
 		}
 
-		// POST: api/Stem
-		[Authorize]
+		// POST: api/Stem		[Authorize]
 		[HttpPost]
 		public async Task<ActionResult<Stem_dto>> PostStem(Stem_dto stem)
 		{
