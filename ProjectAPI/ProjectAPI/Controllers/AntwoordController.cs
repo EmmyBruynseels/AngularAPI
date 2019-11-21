@@ -102,7 +102,7 @@ namespace ProjectAPI.Controllers
 		[HttpDelete("{id}")]
         public async Task<ActionResult<Antwoord>> DeleteAntwoord(int id)
         {
-            var antwoord = await _context.Antwoord.FindAsync(id);
+			var antwoord = await _context.Antwoord.Include(a => a.Stemmen).FirstOrDefaultAsync(a => a.AntwoordID == id);
             if (antwoord == null)
             {
                 return NotFound();

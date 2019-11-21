@@ -323,7 +323,7 @@ namespace ProjectAPI.Controllers
 		[HttpDelete("{id}")]
 		public async Task<ActionResult<Poll>> DeletePoll(int id)
 		{
-			var poll = await _context.Polls.FindAsync(id);
+			var poll = await _context.Polls.Include(p => p.Antwoorden).ThenInclude(a=>a.Stemmen).Include(p => p.PollGebruikers).FirstOrDefaultAsync(p => p.PollID == id);
 			if (poll == null)
 			{
 				return NotFound();
