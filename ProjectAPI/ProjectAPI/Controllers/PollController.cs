@@ -237,15 +237,42 @@ namespace ProjectAPI.Controllers
 		// GET: api/Poll/5
 		[Authorize]
 		[HttpGet("{id}")]
-		public async Task<ActionResult<Poll>> GetPoll(int id)
+		public async Task<ActionResult<Poll_dto>> GetPoll(int id)
 		{
-			var poll = await _context.Polls.Include(p => p.Antwoorden).FirstOrDefaultAsync(p => p.PollID == id);
+			var p = await _context.Polls.Include(po => po.Antwoorden).ThenInclude(a => a.Stemmen).Include(po => po.PollGebruikers).FirstOrDefaultAsync(po => po.PollID == id);
 
-			if (poll == null)
+			if (p == null)
 			{
 				return NotFound();
 			}
 
+			Poll_dto poll = new Poll_dto();
+			poll.Naam = p.Naam;
+			poll.PollID = p.PollID;
+			poll.Antwoorden = new List<Antwoord_dto>();
+			foreach (var a in p.Antwoorden)
+			{
+				var antw = new Antwoord_dto();
+				antw.AntwoordID = a.AntwoordID;
+				antw.Naam = a.Naam;
+				antw.Stemmen = new List<Stem_dto>();
+
+				foreach (var s in a.Stemmen)
+				{
+					antw.Stemmen.Add(new Stem_dto() { StemID = s.StemID, UserID = s.UserID, AntwoordID = s.AntwoordID });
+				}
+
+				poll.Antwoorden.Add(antw);
+			}
+			poll.Users = new List<PollGebruiker_dto>();
+			foreach (var u in p.PollGebruikers)
+			{
+				var pollUser = new PollGebruiker_dto();
+				pollUser.UserID = u.UserID;
+				pollUser.PollID = u.PollID;
+				pollUser.isAdmin = u.isAdmin;
+				poll.Users.Add(pollUser);
+			}
 			return poll;
 		}
 
