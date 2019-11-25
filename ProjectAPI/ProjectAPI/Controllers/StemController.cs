@@ -106,6 +106,24 @@ namespace ProjectAPI.Controllers
 			return stem;
 		}
 
+		[Authorize]
+		[HttpDelete("ByUserIDAndPollID")]
+		public async Task<ActionResult<Stem>> DeleteStemByUserIDAndPollID(int userID, int pollID)
+		{
+			
+			var stem = await _context.Stemmen.FirstOrDefaultAsync(s => s.UserID == userID && s.Antwoord.PollID == pollID);
+
+			if (stem == null)
+			{
+				return NotFound();
+			}
+
+			_context.Stem.Remove(stem);
+			await _context.SaveChangesAsync();
+
+			return stem;
+		}
+
 		private bool StemExists(int id)
 		{
 			return _context.Stem.Any(e => e.StemID == id);

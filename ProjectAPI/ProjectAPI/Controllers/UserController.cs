@@ -53,8 +53,16 @@ namespace ProjectAPI.Controllers
             return user;
         }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
+		[HttpGet("ByEmail")]
+		public async Task<ActionResult<User>> GetUserByEmail(string email)
+		{
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+
+			return user;
+		}
+
+		// PUT: api/User/5
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id,[FromBody] User user)
         {
             if (id != user.UserID)
