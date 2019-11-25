@@ -11,99 +11,120 @@ using ProjectAPI.Models.dto;
 
 namespace ProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PollGebruikerController : ControllerBase
-    {
-        private readonly PollContext _context;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class PollGebruikerController : ControllerBase
+	{
+		private readonly PollContext _context;
 
-        public PollGebruikerController(PollContext context)
-        {
-            _context = context;
-        }
+		public PollGebruikerController(PollContext context)
+		{
+			_context = context;
+		}
 
 		// GET: api/PollGebruiker
 		[Authorize]
 		[HttpGet]
-        public async Task<ActionResult<IEnumerable<PollGebruiker>>> GetPollGebruiker()
-        {
-            return await _context.PollGebruiker.ToListAsync();
-        }
+		public async Task<ActionResult<IEnumerable<PollGebruiker>>> GetPollGebruiker()
+		{
+			return await _context.PollGebruiker.ToListAsync();
+		}
 
 		// GET: api/PollGebruiker/5
 		[Authorize]
 		[HttpGet("{id}")]
-        public async Task<ActionResult<PollGebruiker>> GetPollGebruiker(int id)
-        {
-            var pollGebruiker = await _context.PollGebruiker.FindAsync(id);
+		public async Task<ActionResult<PollGebruiker>> GetPollGebruiker(int id)
+		{
+			var pollGebruiker = await _context.PollGebruiker.FindAsync(id);
 
-            if (pollGebruiker == null)
-            {
-                return NotFound();
-            }
+			if (pollGebruiker == null)
+			{
+				return NotFound();
+			}
 
-            return pollGebruiker;
-        }
+			return pollGebruiker;
+		}
 
 		// PUT: api/PollGebruiker/5
 		[Authorize]
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutPollGebruiker(int id, PollGebruiker pollGebruiker)
-        {
-            if (id != pollGebruiker.PollGebruikerID)
-            {
-                return BadRequest();
-            }
+		public async Task<IActionResult> PutPollGebruiker(int id, PollGebruiker pollGebruiker)
+		{
+			if (id != pollGebruiker.PollGebruikerID)
+			{
+				return BadRequest();
+			}
 
-            _context.Entry(pollGebruiker).State = EntityState.Modified;
+			_context.Entry(pollGebruiker).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PollGebruikerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!PollGebruikerExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
 
-            return NoContent();
-        }
+			return NoContent();
+		}
 
 		// POST: api/PollGebruiker
 		[Authorize]
 		[HttpPost]
-        public async Task<ActionResult<PollGebruiker_dto>> PostPollGebruiker(PollGebruiker_dto pollGebruiker)
-        {
+		public async Task<ActionResult<PollGebruiker_dto>> PostPollGebruiker(PollGebruiker_dto pollGebruiker)
+		{
 			var pg1 = new PollGebruiker() { UserID = pollGebruiker.UserID, PollID = pollGebruiker.PollID, isAdmin = pollGebruiker.isAdmin };
-            _context.PollGebruiker.Add(pg1);
-            await _context.SaveChangesAsync();
+			_context.PollGebruiker.Add(pg1);
+			await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPollGebruiker", new { id = pg1.PollGebruikerID }, pg1);
-        }
+			return CreatedAtAction("GetPollGebruiker", new { id = pg1.PollGebruikerID }, pg1);
+		}
+		[Authorize]
+		[HttpPost("ByUserIDAndPollID")]
+		public async Task<ActionResult<PollGebruiker_dto>> PostPollGebruikerByUserIDAndPollID(PollGebruiker_dto pollGebruiker)
+		{
+			//als deze user al toegevoegd is aan poll -> null returnen
+			//anders pollgebruiker toevoegen
+			var pg = _context.PollGebruikers.FirstOrDefault(p => p.PollID == pollGebruiker.PollID && p.UserID == pollGebruiker.UserID);
+			if (pg == null)
+			{
+				var pg1 = new PollGebruiker() { UserID = pollGebruiker.UserID, PollID = pollGebruiker.PollID, isAdmin = pollGebruiker.isAdmin };
+				_context.PollGebruiker.Add(pg1);
+				await _context.SaveChangesAsync();
+
+				return CreatedAtAction("GetPollGebruiker", new { id = pg1.PollGebruikerID }, pg1);
+			}
+			else
+			{
+				return null;
+			}
+
+		}
 
 		// DELETE: api/PollGebruiker/5
 		[Authorize]
 		[HttpDelete("{id}")]
-        public async Task<ActionResult<PollGebruiker>> DeletePollGebruiker(int id)
-        {
-            var pollGebruiker = await _context.PollGebruiker.FindAsync(id);
-            if (pollGebruiker == null)
-            {
-                return NotFound();
-            }
+		public async Task<ActionResult<PollGebruiker>> DeletePollGebruiker(int id)
+		{
+			var pollGebruiker = await _context.PollGebruiker.FindAsync(id);
+			if (pollGebruiker == null)
+			{
+				return NotFound();
+			}
 
-            _context.PollGebruiker.Remove(pollGebruiker);
-            await _context.SaveChangesAsync();
+			_context.PollGebruiker.Remove(pollGebruiker);
+			await _context.SaveChangesAsync();
 
-            return pollGebruiker;
-        }
+			return pollGebruiker;
+		}
 
 		[Authorize]
 		[HttpDelete("ByPollIDAndUserID")]
@@ -118,8 +139,8 @@ namespace ProjectAPI.Controllers
 		}
 
 		private bool PollGebruikerExists(int id)
-        {
-            return _context.PollGebruiker.Any(e => e.PollGebruikerID == id);
-        }
-    }
+		{
+			return _context.PollGebruiker.Any(e => e.PollGebruikerID == id);
+		}
+	}
 }
