@@ -156,8 +156,25 @@ namespace ProjectAPI.Controllers
 
             return friend;
         }
+		[Authorize]
+		[HttpDelete("ByUserIDAndFriendID")]
+		public async Task<ActionResult<Friend>> DeleteFriendByUserIDAndFriendID(int userID,int friendID)
+		{
+			//var friend = await _context.Friends.FindAsync(id);
+			var friend = await _context.Friends.FirstOrDefaultAsync(f => (f.OntvangerID == userID && f.SenderID == friendID)
+								|| (f.OntvangerID == friendID && f.SenderID == userID));
+			if (friend == null)
+			{
+				return NotFound();
+			}
 
-        private bool FriendExists(int id)
+			_context.Friends.Remove(friend);
+			await _context.SaveChangesAsync();
+
+			return friend;
+		}
+
+		private bool FriendExists(int id)
         {
             return _context.Friends.Any(e => e.FriendID == id);
         }
