@@ -105,7 +105,19 @@ namespace ProjectAPI.Controllers
             return pollGebruiker;
         }
 
-        private bool PollGebruikerExists(int id)
+		[Authorize]
+		[HttpDelete("ByPollIDAndUserID")]
+		public async Task<ActionResult<PollGebruiker>> DeletePollGebruikerByUserIDAndPollID(int userID, int pollID)
+		{
+			var pollGebruiker = await _context.PollGebruikers.FirstOrDefaultAsync(p => p.PollID == pollID && p.UserID == userID);
+
+			_context.PollGebruiker.Remove(pollGebruiker);
+			await _context.SaveChangesAsync();
+
+			return pollGebruiker;
+		}
+
+		private bool PollGebruikerExists(int id)
         {
             return _context.PollGebruiker.Any(e => e.PollGebruikerID == id);
         }
