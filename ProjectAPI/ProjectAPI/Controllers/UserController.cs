@@ -18,8 +18,8 @@ namespace ProjectAPI.Controllers
 		private readonly PollContext _context;
 		private IUserService _userService;
 		public UserController(PollContext context, IUserService userService)
-        {
-            _context = context;
+		{
+			_context = context;
 			_userService = userService;
 		}
 
@@ -35,23 +35,24 @@ namespace ProjectAPI.Controllers
 
 		// GET: api/User
 		[HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();        }
+		public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+		{
+			return await _context.Users.ToListAsync();
+		}
 
-        // GET: api/User/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
+		// GET: api/User/5
+		[HttpGet("{id}")]
+		public async Task<ActionResult<User>> GetUser(int id)
+		{
+			var user = await _context.Users.FindAsync(id);
 
-            if (user == null)
-            {
-                return NotFound();
-            }
+			if (user == null)
+			{
+				return NotFound();
+			}
 
-            return user;
-        }
+			return user;
+		}
 
 		[HttpGet("ByEmail")]
 		public async Task<ActionResult<User>> GetUserByEmail(string email)
@@ -63,64 +64,72 @@ namespace ProjectAPI.Controllers
 
 		// PUT: api/User/5
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id,[FromBody] User user)
-        {
-            if (id != user.UserID)
-            {
-                return BadRequest();
-            }
+		public async Task<IActionResult> PutUser(int id, [FromBody] User user)
+		{
+			if (id != user.UserID)
+			{
+				return BadRequest();
+			}
 
-            _context.Entry(user).State = EntityState.Modified;
+			_context.Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!UserExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
 
-            return NoContent();
-        }
+			return NoContent();
+		}
 
-        // POST: api/User
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUser([FromBody] User user)
-        {
-		//	var user1 = new User() { Email = user.Email, Username = user.Username, Password =user.Password};
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+		// POST: api/User
+		[HttpPost]
+		public async Task<ActionResult<User>> PostUser([FromBody] User user)
+		{
+			//	var user1 = new User() { Email = user.Email, Username = user.Username, Password =user.Password};
+			_context.Users.Add(user);
+			await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserID }, user);
-        }
+			return CreatedAtAction("GetUser", new { id = user.UserID }, user);
+		}
 
-        // DELETE: api/User/5s
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+		// DELETE: api/User/5s
+		[HttpDelete("{id}")]
+		public async Task<ActionResult<User>> DeleteUser(int id)
+		{
+			var user = await _context.Users.FindAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+			_context.Users.Remove(user);
+			await _context.SaveChangesAsync();
 
-            return user;
-        }
+			return user;
+		}
 
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.UserID == id);
-        }
-    }
+		private bool UserExists(int id)
+		{
+			return _context.Users.Any(e => e.UserID == id);
+		}
+
+		[HttpGet("aantalUsers")]
+		public int getAantalUsers()
+		{
+			var users = _context.Users;
+			var aantal = users.Count();
+			return aantal;
+		}
+	}
 }

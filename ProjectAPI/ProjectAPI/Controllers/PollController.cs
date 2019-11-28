@@ -339,5 +339,13 @@ namespace ProjectAPI.Controllers
 		{
 			return _context.Polls.Any(e => e.PollID == id);
 		}
+
+		[HttpGet("aantalPolls")]
+		public int getAantalPolls()
+		{
+			var polls = _context.Polls;
+			var aantal = polls.Count();
+			return aantal;
+		}
 	}
 }
